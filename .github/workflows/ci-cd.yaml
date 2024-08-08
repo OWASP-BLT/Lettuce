@@ -1,16 +1,12 @@
 name: CI/CD
+
 on:
-  - merge_group
-  - pull_request
-  - push
-  - workflow_dispatch
+  push:
+  pull_request:
+  workflow_dispatch:
 
 env:
   FORCE_COLOR: 1
-
-concurrency:
-  cancel-in-progress: true
-  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
 
 jobs:
   pre-commit:
@@ -23,7 +19,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: '3.11'
+          python-version: "3.11"
 
       - name: Run pre-commit
         uses: pre-commit/action@v3.0.1
@@ -39,7 +35,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: '3.11'
+          python-version: "3.11"
 
       - name: Install dependencies
         run: |
